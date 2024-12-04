@@ -17,7 +17,7 @@
         </div>
 
         <div class="form-floating">
-          Уже есть аккаунт? <a @click="this.$emit('switchLayout', '')" class="icon-link">Войти ></a>
+          Уже есть аккаунт? <a @click="this.$emit('display', 1)" class="icon-link">Войти ></a>
         </div>
 
         <button class="btn btn-primary w-100 py-2" @click="submit">Зарегистрироваться</button>
@@ -40,11 +40,13 @@ export default {
   methods: {
     submit(){
       if(this.password1 == this.password2){
-
-        this.$emit('regStatus', Api.authUser(this.email, this.password))
-        this.email = ""
-        this.password1 = ""
-        this.password2 = ""
+        if(Api.authUser(this.email, this.password)){
+          //Когда прошла регистрация переброс на auth
+          this.$emit('display', 1)
+          this.email = ""
+          this.password1 = ""
+          this.password2 = ""
+        }
       }
     }
   }

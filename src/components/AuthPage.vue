@@ -13,7 +13,7 @@
         </div>
 
         <div class="form-floating">
-          <a @click="this.$emit('switchLayout', '')" class="icon-link">Зарегистрироваться ></a>
+          <a @click="this.$emit('display', 2)" class="icon-link">Зарегистрироваться ></a>
         </div>
 
         <button class="btn btn-primary w-100 py-2" @click="submit">Войти</button>
@@ -34,7 +34,10 @@ export default {
   },
   methods: {
     submit() {
-      this.$emit('user_id', Api.authUser(this.email, this.password))
+      if(Api.authUser(this.email, this.password) != -1){
+        //переброс на главную после авторизации
+        this.$emit('display', 0)
+      }
     }
   },
 }
